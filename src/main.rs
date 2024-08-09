@@ -7,6 +7,7 @@ type Context<'a> = poise::Context<'a, Data, Error>;
 mod secrets;
 mod ai;
 
+
 /// Ask Gemini 1.5 Pro
 #[poise::command(slash_command, prefix_command)]
 async fn ask(
@@ -19,13 +20,12 @@ async fn ask(
     Ok(())
 }
 
-// Start a conversation
-#[poise::command(slash_command, prefix_command)]
-async fn start(
+// Pong!
+#[poise::command(slash_command)]
+async fn ping(
     ctx: Context<'_>,
 ) -> Result<(), Error> {
-    // let u = user.as_ref().unwrap_or_else(|| ctx.author());
-    let response = "hey chat";
+    let response = "Pong!";
     ctx.say(response).await?;
     Ok(())
 }
@@ -37,7 +37,7 @@ async fn main() {
 
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
-            commands: vec![ask(), start()],
+            commands: vec![ask(), ping()],
             ..Default::default()
         })
         .setup(|ctx, _ready, framework| {
