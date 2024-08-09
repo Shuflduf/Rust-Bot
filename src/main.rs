@@ -7,14 +7,14 @@ type Context<'a> = poise::Context<'a, Data, Error>;
 mod secrets;
 mod ai;
 
-/// Displays your or another user's account creation date
+/// Ask Gemini 1.5 Pro
 #[poise::command(slash_command, prefix_command)]
-async fn age(
+async fn ask(
     ctx: Context<'_>,
-    #[description = "Selected user"] user: Option<serenity::User>,
+    #[description = "Prompt"] prompt: String,
 ) -> Result<(), Error> {
-    let u = user.as_ref().unwrap_or_else(|| ctx.author());
-    let response = ai::ask("hello").await;
+    // let u = user.as_ref().unwrap_or_else(|| ctx.author());
+    let response = ai::ask(&prompt[..]).await;
     ctx.say(response).await?;
     Ok(())
 }
@@ -28,7 +28,7 @@ async fn main() {
 
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
-            commands: vec![age()],
+            commands: vec![ask()],
             ..Default::default()
         })
         .setup(|ctx, _ready, framework| {
