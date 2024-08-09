@@ -19,16 +19,25 @@ async fn ask(
     Ok(())
 }
 
+// Start a conversation
+#[poise::command(slash_command, prefix_command)]
+async fn start(
+    ctx: Context<'_>,
+) -> Result<(), Error> {
+    // let u = user.as_ref().unwrap_or_else(|| ctx.author());
+    let response = "hey chat";
+    ctx.say(response).await?;
+    Ok(())
+}
+
 #[tokio::main]
 async fn main() {
     let token = secrets::BOT_TOKEN.to_string();
     let intents = serenity::GatewayIntents::non_privileged();
 
-    // ai::ask("HELLO").await;
-
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
-            commands: vec![ask()],
+            commands: vec![ask(), start()],
             ..Default::default()
         })
         .setup(|ctx, _ready, framework| {
