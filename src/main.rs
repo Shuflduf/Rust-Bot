@@ -21,11 +21,21 @@ async fn ask(
 }
 
 // Pong!
-#[poise::command(slash_command)]
+#[poise::command(slash_command, prefix_command)]
 async fn ping(
     ctx: Context<'_>,
 ) -> Result<(), Error> {
     let response = "Pong!";
+    ctx.say(response).await?;
+    Ok(())
+}
+
+// 🐸🚀
+#[poise::command(slash_command, prefix_command)]
+async fn frogret(
+    ctx: Context<'_>,
+) -> Result<(), Error> {
+    let response = "🐸🚀";
     ctx.say(response).await?;
     Ok(())
 }
@@ -37,7 +47,7 @@ async fn main() {
 
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
-            commands: vec![ask(), ping()],
+            commands: vec![ask(), ping(), frogret()],
             ..Default::default()
         })
         .setup(|ctx, _ready, framework| {
