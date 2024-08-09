@@ -6,4 +6,4 @@ edition = "2021"
 [dependencies]
 poise = "*"
 tokio = { version = "*", features = ["full"] }
-google-generative-ai-rs = "*"
+ask_gemini = "*"

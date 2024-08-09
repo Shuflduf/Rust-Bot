@@ -5,6 +5,7 @@ type Error = Box<dyn std::error::Error + Send + Sync>;
 type Context<'a> = poise::Context<'a, Data, Error>;
 
 mod secrets;
+mod ai;
 
 /// Displays your or another user's account creation date
 #[poise::command(slash_command, prefix_command)]
@@ -13,7 +14,7 @@ async fn age(
     #[description = "Selected user"] user: Option<serenity::User>,
 ) -> Result<(), Error> {
     let u = user.as_ref().unwrap_or_else(|| ctx.author());
-    let response = format!("{}'s account was created at {}", u.name, u.created_at());
+    let response = ai::ask("hello").await;
     ctx.say(response).await?;
     Ok(())
 }
@@ -22,6 +23,8 @@ async fn age(
 async fn main() {
     let token = secrets::BOT_TOKEN.to_string();
     let intents = serenity::GatewayIntents::non_privileged();
+
+    // ai::ask("HELLO").await;
 
     let framework = poise::Framework::builder()
         .options(poise::FrameworkOptions {
