@@ -2,6 +2,8 @@
 
 ![image](https://github.com/user-attachments/assets/71a36e81-15e1-4c63-b770-1349f67dd0fb)
 
+[Invite link to test bot](https://discord.com/oauth2/authorize?client_id=1271303422049652776)
+
 ### Setup:
 1. Make a `secrets.rs` file in the `src/` directory.
 2. Add the following:
